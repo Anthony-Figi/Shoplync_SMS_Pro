@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>shoplync_sms_pro</name>
+	<displayName><![CDATA[SMS Pro ]]></displayName>
+	<version><![CDATA[1.0.0]]></version>
+	<description><![CDATA[SMS Pro for PrestaShop by Shoplync is a Windows-based desktop application, empowering you to manage all aspects of your business under one ecosystem. 
+
+SMS Pro features a new intuitive interface that enables you to manage and process sales orders in record time, while also allowing you to set pricing models, generate invoices, import parts list and update your online catalog. SMS Pro not only manages your Prestashop store but also bridges the gap between your online and physical store.
+
+Keep costs low and profits high by allowing SMS Pro todo all the heavy lifting. ]]></description>
+	<author><![CDATA[Shoplync]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>
