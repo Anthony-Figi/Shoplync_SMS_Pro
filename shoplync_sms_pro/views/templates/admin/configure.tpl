@@ -64,5 +64,4 @@
 </div>
 <div class="panel">
 	{$render_form}
-	{$newKey_form}
 </div>
