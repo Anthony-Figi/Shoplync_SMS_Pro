@@ -26,14 +26,3 @@
 * to avoid any conflicts with others containers.
 */
 console.log('SMS Pro - Shoplync Inc');
-
-function GetNewKey()
-{
-    console.log('Generating A New API Key');
-    var newKeyForm = document.getElementById("module_form_1");
-    if(newKeyForm != null)
-    {
-        newKeyForm.submit();
-    }
-    
-}
