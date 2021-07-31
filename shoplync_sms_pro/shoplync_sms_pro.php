@@ -113,56 +113,12 @@ class Shoplync_sms_pro extends Module
 		$form = $this->renderForm();
 		$this->context->smarty->assign('render_form', $form);
         
-        $newKeyForm = $this->renderNewKeyForm();
-		$this->context->smarty->assign('newKey_form', $newKeyForm);
 
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
         return $output;
     }
     
-    /**
-    * Created A form that is used by this module to generate a new key
-    */
-    protected function renderNewKeyForm()
-    {
-        $helper = new HelperForm();
-
-        $helper->show_toolbar = false;
-        $helper->table = $this->table;
-        $helper->module = $this;
-        $helper->default_form_language = $this->context->language->id;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
-
-        $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitShoplync_sms_proNewKey';
-        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
-            .'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
-        $helper->token = Tools::getAdminTokenLite('AdminModules');
-
-        $helper->tpl_vars = array(
-            //'fields_value' => $this->getConfigFormValues(), /* Add values for your inputs */
-            'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id,
-        );
-
-        $formConfig = array(
-                'form' => array(
-                    'legend' => array(
-                    'title' => $this->l('Settings'),
-                    'icon' => '',
-                    'class' => 'hidden',
-                    ),
-                    'submit' => array(
-                        'title' => $this->l('Save'),
-                        'class' => 'hidden',
-                    ),
-                ),
-            );
-
-        return $helper->generateForm(array($formConfig));
-        
-    }
     /**
      * Create the form that will be displayed in the configuration of your module.
      */
@@ -177,7 +133,8 @@ class Shoplync_sms_pro extends Module
         $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
 
         $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitShoplync_sms_proModule';
+        //$helper->submit_action = 'submitShoplync_sms_proModule';
+        $helper->submit_action = 'submitShoplync_sms_proNewKey';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
             .'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
@@ -214,7 +171,7 @@ class Shoplync_sms_pro extends Module
 						'col' => 4,
                         'type' => 'text',
 						'prefix' => '<i class="icon icon-key"></i>',
-						'suffix' => '<a href="#" id="mybutton" class="btn btn-default" '.(WebserviceKey::keyExists($key) ? ' disabled ' : '').' onclick="GetNewKey()"><i class="icon-refresh"></i> Generate New Key</a>',
+						'suffix' => '<button id="mybutton" class="btn btn-default" '.(WebserviceKey::keyExists($key) ? ' disabled ' : '').' type="submit"><i class="icon-refresh"></i> Generate New Key</a>',
                         'desc' => $this->l('Enter this API key inside the SMS Pro settings page. ').'<a href="https://www.shoplync.com/help/">Learn more</a>',
                         'name' => 'SHOPLYNC_SMS_PRO_API_KEY',
 						'class' => 'h-100',
@@ -223,7 +180,9 @@ class Shoplync_sms_pro extends Module
                     ),
                 ),
                 'submit' => array(
-                    'title' => $this->l('Save'),
+                    'title' => $this->l('Generate Key'),
+                    'icon' => 'process-icon-refresh',
+                    'class' => (WebserviceKey::keyExists($key) ? 'btn btn-default pull-right hidden' : 'btn btn-default pull-right'),
                 ),
 				'buttons' => array(
 					[
