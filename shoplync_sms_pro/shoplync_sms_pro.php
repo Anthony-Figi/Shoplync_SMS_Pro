@@ -39,6 +39,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+include_once dirname (__FILE__).'/classes/WebserviceSpecificManagementOrderInvoicePayment.php';
+
 class Shoplync_sms_pro extends Module
 {
     protected $config_form = false;
@@ -76,10 +78,9 @@ class Shoplync_sms_pro extends Module
 
         include(dirname(__FILE__).'/sql/install.php');
 			
-		if (!parent::install() || !$this->registerHook('displayBackOfficeHeader')) {
-            return false;
-        }
-        return true;
+		return parent::install() 
+            && $this->registerHook('displayBackOfficeHeader')
+            && $this->registerHook('addWebserviceResources');
     }
 
     public function uninstall()
@@ -376,7 +377,13 @@ class Shoplync_sms_pro extends Module
             //either return key or update key within the configuration code
             Configuration::updateValue('SHOPLYNC_SMS_PRO_API_KEY', $apiAccess->key);            
         }
-        
-
 	}
+    
+    public function hookAddWebserviceResources()
+    {
+        return array(
+            'OrderInvoicePayments' => array('description' => 'Allow Payments To Be Linked To Invoices', 'specific_management' => true)
+        );
+     
+    }
 }

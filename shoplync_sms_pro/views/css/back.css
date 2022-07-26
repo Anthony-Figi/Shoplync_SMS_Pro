@@ -63,12 +63,9 @@
     cursor:text!important;
 }
 .hidden {
-    display:none;
+    display:none!important;
 }
 
 .panel form:first-child {
     display: block;
-}
-.panel form {
-    display: none;
 }
